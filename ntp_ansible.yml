@@ -1,0 +1,23 @@
+- hosts: localhost
+  connection: local
+  collections:
+    - cisco.intersight
+  gather_facts: false
+  tasks:
+    - name: Configure NTP Policy via Ansible
+      intersight_ntp_policy:
+        api_key_id: "{{ lookup('env', 'INTERSIGHT_API_KEY_ID') }}"
+        api_private_key: "{{ lookup('env', 'INTERSIGHT_API_PRIVATE_KEY') }}"
+        name: ansible
+        description: This is an NTP policy created with Ansible
+        organization: CLUS
+        enable: true
+        ntp_servers:
+          - 1.1.1.1
+          - 2.2.2.2
+        tags:
+          - Key: CLUS2023
+            Value: Devnet-1061
+          - Key: Language
+            Value: Ansible
+        timezone: America/Phoenix
