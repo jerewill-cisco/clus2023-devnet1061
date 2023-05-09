@@ -27,7 +27,7 @@ https://github.com/cgascoig/isctl
 
 # Or deploy an OVA with the prerequisites ready to run
 
-Tyson Scott has been working on an OVA based on Ubuntu to provide a ready-to-run virtual machine based on Ubuntu that is perfect for getting started.  If you download and deploy this OVA, you can use it as a playground to start exploring the Intersight APIs.
+@scotttyso has been working on an OVA based on Ubuntu to provide a ready-to-run virtual machine based on Ubuntu that is perfect for getting started.  If you download and deploy this OVA, you can use it as a playground to start exploring the Intersight APIs.
 
 ~~URL to be determined~~
 
