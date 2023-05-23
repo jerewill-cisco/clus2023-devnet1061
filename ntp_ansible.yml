@@ -3,11 +3,19 @@
   collections:
     - cisco.intersight
   gather_facts: false
+  vars:
+    ## This var allows us to use the API configuration in all of our tasks
+    api_info: &api_info
+      api_key_id: "{{ lookup('env', 'INTERSIGHT_API_KEY_ID') }}"
+      api_private_key: "{{ lookup('env', 'INTERSIGHT_API_PRIVATE_KEY') }}"
   tasks:
+    #
+    # This is our first example that uses an object type specific module
+    # Unfortunately, this module style only exists for a small fraction of object types
+    #
     - name: Configure NTP Policy via Ansible
       intersight_ntp_policy:
-        api_key_id: "{{ lookup('env', 'INTERSIGHT_API_KEY_ID') }}"
-        api_private_key: "{{ lookup('env', 'INTERSIGHT_API_PRIVATE_KEY') }}"
+        <<: *api_info
         name: ansible
         description: This is an NTP policy created with Ansible
         organization: CLUS
@@ -21,3 +29,32 @@
           - Key: Language
             Value: Ansible
         timezone: America/Phoenix
+    #
+    # This is our second example that uses the rest_api module
+    # This module can be used with any object type
+    #
+    - name: 'Get CLUS Organization via Ansible'
+      intersight_rest_api:
+        <<: *api_info
+        resource_path: /organization/Organizations
+        query_params:
+          $filter: "Name eq 'CLUS'"
+      register: clus_org
+    - name: Configure NTP Policy via Ansible REST
+      intersight_rest_api:
+        <<: *api_info
+        resource_path: /ntp/Policies
+        api_body:
+          {
+            'Organization': { 'Moid': '{{ clus_org.api_response.Moid }}' },
+            'Name': 'ansible-rest',
+            'Tags':
+              [
+                { 'Key': 'CLUS2023', 'Value': 'DEVNET-1061' },
+                { 'Key': 'Language', 'Value': 'Ansible' }
+              ],
+            'Description': 'This is an NTP policy created with Ansible REST',
+            'Enabled': true,
+            'NtpServers': ['1.1.1.1', '2.2.2.2'],
+            'Timezone': 'America/Phoenix'
+          }
