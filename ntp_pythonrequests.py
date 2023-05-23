@@ -5,11 +5,11 @@ import os
 
 
 session = Session()
-api_key_id = os.environ['INTERSIGHT_API_KEY_ID']
-api_key = os.environ['INTERSIGHT_API_PRIVATE_KEY']
+api_key_id = os.environ["INTERSIGHT_API_KEY_ID"]
+api_key = os.environ["INTERSIGHT_API_PRIVATE_KEY"]
 session.auth = IntersightAuth(api_key_id=api_key_id, secret_key_string=api_key)
 
-filter= urllib.parse.quote("Name eq 'CLUS'")
+filter = urllib.parse.quote("Name eq 'CLUS'")
 org = session.get(
     f"https://intersight.com/api/v1/organization/Organizations?$filter={filter}"
 ).json()["Results"][0]

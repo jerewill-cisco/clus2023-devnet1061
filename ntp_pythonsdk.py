@@ -15,7 +15,7 @@ from intersight.model.organization_organization_relationship import (
 def get_api_client(api_secret_file, endpoint="https://intersight.com"):
     with open(api_secret_file, "r") as f:
         api_key = f.read()
-        api_key_id = os.environ['INTERSIGHT_API_KEY_ID']
+        api_key_id = os.environ["INTERSIGHT_API_KEY_ID"]
 
     if re.search("BEGIN RSA PRIVATE KEY", api_key):
         # API Key v2 format
