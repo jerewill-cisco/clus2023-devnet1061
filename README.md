@@ -25,12 +25,6 @@ https://www.powershellgallery.com/packages/Intersight.PowerShell/
 ### isctl CLI
 https://github.com/cgascoig/isctl
 
-# Or deploy an OVA with the prerequisites ready to run
-
-[@scotttyso](https://github.com/scotttyso) has been [working on an OVA](https://github.com/scotttyso/imm-toolkit) based on Ubuntu to provide a ready-to-run virtual machine based on Ubuntu that is perfect for getting started.  If you download and deploy this OVA, you can use it as a playground to start exploring the Intersight APIs.  Download that OVA here...
-
-http://cs.co/imm-toolkit
-
 # Authentication with API Keys
 
 Intersight uses an API key to sign the headers of API calls instead of using a username and password.  The process for generating API keys is documented in many other places.
